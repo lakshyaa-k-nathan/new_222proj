@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import MapView from "./components/MapView.jsx";
 import ReportForm from "./components/ReportForm.jsx";
 import IncidentList from "./components/IncidentList.jsx";
+import Login from "./components/Login.jsx";
+
 
 function App() {
   const [incidents, setIncidents] = useState(() => {
@@ -14,6 +16,8 @@ function App() {
 
   // Where the next report is attached (lat, lng, address)
   const [selectedLocation, setSelectedLocation] = useState(null);
+
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("incidents", JSON.stringify(incidents));
@@ -89,6 +93,11 @@ function App() {
   const handleMapClick = (loc) => {
     updateSelectedLocation(loc.lat, loc.lng);
   };
+
+  if (!user) {
+  return <Login onLogin={setUser} />;
+  }
+
 
   return (
     <div className="app-container">
